@@ -7,7 +7,7 @@ import { Roles } from "../common/decorators/roles.decorator";
 import { User, UserFillableFields } from "./user.entity";
 
 @Injectable()
-@Roles("admin") // TODO: Add 'authenticatedUser'
+@Roles("admin")
 export class UsersService {
   constructor(
     @InjectRepository(User)

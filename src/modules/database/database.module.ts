@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 import { ConfigModule } from "../config/config.module";
 import { ConfigService } from "../config/config.service";
+import { Race } from "../race/race.entity";
 import { User } from "../user/user.entity";
 
 @Module({
@@ -20,8 +21,8 @@ import { User } from "../user/user.entity";
           password: config.databasePassword,
           // importing entities directly because Webpack + glob path pattern + ts file = crash
           // https://github.com/nestjs/nest/issues/711
-          entities: [User], //entities: ["src/modules/**/*.entity{.ts,.js}"],
-          migrations: [User], //migration: ["src/modules/**/*.migration{.ts,.js}"],
+          entities: [User, Race], //entities: ["src/modules/**/*.entity{.ts,.js}"],
+          migrations: [User, Race], //migration: ["src/modules/**/*.migration{.ts,.js}"],
           synchronize: config.isDev,
           logging: !config.isProd,
           useNewUrlParser: true,

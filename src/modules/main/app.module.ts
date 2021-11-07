@@ -6,14 +6,16 @@ import { AppService } from "./app.service";
 import { AuthModule } from "../auth/auth.module";
 import { ConfigModule } from "../config/config.module";
 import { ConfigService } from "../config/config.service";
-//import { User } from "../user/user.entity";
+import { EventEmitterModule } from "@nestjs/event-emitter";
+import { RaceModule } from "../race/race.module";
 
 @Module({
   imports: [
     AuthModule,
     ConfigModule,
     DatabaseModule,
-    //TypeOrmModule.forFeature([User]),
+    RaceModule,
+    EventEmitterModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

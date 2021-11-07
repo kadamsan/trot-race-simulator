@@ -49,6 +49,5 @@ export class AuthController {
     return res
       .status(HttpStatus.ACCEPTED)
       .json({ message: "Successful Registration", data: user });
-    //return await this.authService.generateToken(user);
   }
 }
