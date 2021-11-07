@@ -32,6 +32,13 @@
 $ npm install
 ```
 
+## Docker
+
+```bash
+# location - mongodb/docker-compose.yml
+$ sudo docker-compose up -d
+```
+
 ## Running the app
 
 ```bash

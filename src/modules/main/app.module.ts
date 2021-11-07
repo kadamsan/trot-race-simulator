@@ -6,14 +6,14 @@ import { AppService } from "./app.service";
 import { AuthModule } from "../auth/auth.module";
 import { ConfigModule } from "../config/config.module";
 import { ConfigService } from "../config/config.service";
-import { User } from "../user/user.entity";
+//import { User } from "../user/user.entity";
 
 @Module({
   imports: [
     AuthModule,
     ConfigModule,
     DatabaseModule,
-    TypeOrmModule.forFeature([User]),
+    //TypeOrmModule.forFeature([User]),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,12 +14,12 @@ async function bootstrap() {
   const logger = new Logger("Main");
   const globalPrefix = "/api";
 
-  setupSwagger(app);
-
-  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(globalPrefix);
+  app.useGlobalPipes(new ValidationPipe());
   app.use(helmet());
   app.use(loggerMiddleware);
+
+  setupSwagger(app);
 
   await app.listen(AppModule.port);
 
@@ -41,7 +41,7 @@ async function bootstrap() {
   const url = `http://${baseUrl}:${AppModule.port}${globalPrefix}`;
   logger.log(`Listening to ${url}`);
   if (AppModule.isDev) {
-    logger.log(`API Documentation available at ${url}/swagger`);
+    logger.log(`API Documentation available at ${url}/docs`);
   }
 }
 bootstrap();

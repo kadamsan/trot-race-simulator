@@ -1,13 +1,12 @@
 import { Exclude } from "class-transformer";
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
-
 import { PasswordTransformer } from "./password.transformer";
+import { Entity, ObjectID, ObjectIdColumn, Column } from "typeorm";
 
 @Entity({
   name: "users",
 })
 export class User {
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   id!: number;
 
   @Column({ length: 255 })
@@ -16,7 +15,7 @@ export class User {
   @Column({ length: 255 })
   lastName!: string;
 
-  @Column({ length: 255 })
+  @Column({ unique: true, length: 255 })
   email!: string;
 
   @Column({
