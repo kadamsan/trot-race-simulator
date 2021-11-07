@@ -16,9 +16,9 @@ describe("AppController", () => {
   });
 
   describe("root", () => {
-    it('should return "http://vivifyideas.com"', () => {
+    it('should return "Success"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.root()).toBe("http://vivifyideas.com");
+      expect(appController.root()).toBe("Success");
     });
   });
 });
