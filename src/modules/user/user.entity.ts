@@ -1,6 +1,13 @@
 import { Exclude } from "class-transformer";
 import { PasswordTransformer } from "./password.transformer";
-import { Entity, ObjectID, ObjectIdColumn, Column } from "typeorm";
+import {
+  Entity,
+  ObjectID,
+  ObjectIdColumn,
+  Column,
+  BeforeInsert,
+} from "typeorm";
+import { createHmac } from "crypto";
 
 @Entity({
   name: "users",
@@ -9,22 +16,25 @@ export class User {
   @ObjectIdColumn()
   id!: number;
 
-  @Column({ length: 255 })
+  @Column()
   firstName!: string;
 
-  @Column({ length: 255 })
+  @Column()
   lastName!: string;
 
-  @Column({ unique: true, length: 255 })
+  @Column({ unique: true })
   email!: string;
 
-  @Column({
-    name: "password",
-    length: 255,
-    transformer: new PasswordTransformer(),
-  })
+  @Column()
   @Exclude()
   password!: string;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await Promise.resolve(
+      createHmac("sha256", this.password).digest("hex")
+    );
+  }
 }
 
 export class UserFillableFields {

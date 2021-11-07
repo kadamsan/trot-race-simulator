@@ -1,14 +1,22 @@
-import { Controller, Body, Post, UseGuards, HttpStatus } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Post,
+  UseGuards,
+  HttpStatus,
+  Res,
+} from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
-
+import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { LoginPayload } from "./login.payload";
 import { RegisterPayload } from "./register.payload";
 import { UsersService } from "../user/user.service";
+import { JwtAuthGuard } from "../common/guards/jwt-guard";
 
 @Controller("auth")
-@ApiTags("authentication")
+//@ApiTags("authentication")
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -16,7 +24,7 @@ export class AuthController {
   ) {}
 
   @Post("login")
-  @UseGuards(AuthGuard())
+  //@UseGuards(JwtAuthGuard)
   @ApiResponse({ status: HttpStatus.ACCEPTED, description: "Successful Login" })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: "Bad Request" })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: "Unauthorized" })
@@ -32,8 +40,15 @@ export class AuthController {
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: "Bad Request" })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: "Unauthorized" })
-  async register(@Body() payload: RegisterPayload): Promise<any> {
+  async register(
+    @Body() payload: RegisterPayload,
+    @Res() res: Response
+  ): Promise<any> {
     const user = await this.userService.create(payload);
-    return await this.authService.generateToken(user);
+    delete user.password;
+    return res
+      .status(HttpStatus.ACCEPTED)
+      .json({ message: "Successful Registration", data: user });
+    //return await this.authService.generateToken(user);
   }
 }

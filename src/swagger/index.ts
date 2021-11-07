@@ -19,11 +19,10 @@ export const setupSwagger = (app: INestApplication) => {
         type: "http",
         scheme: "bearer",
         bearerFormat: "JWT",
-        name: SWAGGER_API_AUTH_NAME,
         description: "Enter token",
         in: "header",
       },
-      SWAGGER_API_AUTH_LOCATION
+      "access-token"
     )
     .build();
   const document = SwaggerModule.createDocument(app, options);
