@@ -8,6 +8,8 @@ import { ConfigModule } from "../config/config.module";
 import { ConfigService } from "../config/config.service";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { RaceModule } from "../race/race.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { TaskModule } from "../task/task.module";
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { RaceModule } from "../race/race.module";
     ConfigModule,
     DatabaseModule,
     RaceModule,
+    TaskModule,
     EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
