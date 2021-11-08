@@ -2,7 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Race, RaceFillableFields } from "./race.entity";
+import { RaceEvent } from "./events/race.event";
+import { Race } from "./race.entity";
 
 @Injectable()
 export class RaceService {
@@ -15,8 +16,8 @@ export class RaceService {
     return this.raceRepository.findOne(id);
   }
 
-  async create(createRaceDto: RaceFillableFields) {
-    const race = this.raceRepository.create(createRaceDto);
+  async create(raceEventDto: RaceEvent) {
+    const race = this.raceRepository.create(raceEventDto);
     return await this.raceRepository.save(race);
   }
 }

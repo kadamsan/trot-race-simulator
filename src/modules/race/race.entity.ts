@@ -8,9 +8,16 @@ export class Race {
   id!: number;
 
   @Column()
-  name!: string;
+  event!: string;
+
+  @Column((type) => horse)
+  horses!: horse[];
+
+  @Column()
+  time!: number;
 }
 
-export class RaceFillableFields {
+export class horse {
+  @Column()
   name!: string;
 }

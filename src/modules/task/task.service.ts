@@ -3,13 +3,12 @@ import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Cron } from "@nestjs/schedule";
 import { RaceCreatedEvent } from "../race/events/race-created.event";
 import { RaceEvent } from "../race/events/race.event";
-import { RaceFillableFields } from "../race/race.entity";
 
 @Injectable()
 export class TaskService {
   private readonly logger = new Logger(TaskService.name);
 
-  public horses: RaceFillableFields[] = [
+  public horses: any[] = [
     {
       name: "Horse #1",
     },
